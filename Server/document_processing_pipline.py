@@ -5,7 +5,7 @@ import logging
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, WebBaseLoader
 from langchain_community.vectorstores import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain.schema import Document
+from langchain_core.documents import Document
 import re
 from typing import List, Dict, Any
 from dataclasses import dataclass

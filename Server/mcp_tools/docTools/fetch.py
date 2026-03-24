@@ -3,35 +3,60 @@ from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 import logging
 from typing import List, Dict, Any
+from langchain_core.documents import Document
+from fastmcp import FastMCP
 
 
-def load_documents() -> List[Document]:
+
+mcp = FastMCP(name="Calculator-https")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+)
+logger = logging.getLogger(__name__)
+
+@mcp.tool()
+def local_documents() -> List[Document]:
     """Load all documents from specified directories"""
 
     base_dirs = [
-        "./dat/FAQ",
-        "./data/Hand_of_Procedure", 
+        "./data/FAQ",
+        "./data/Hand_Of_Procedure",
         "./data/Foregin_Trade_Policy",
         "./data/Txt_files/"
     ]
 
-    all_documents = []
+    logger.info("Starting local document ingestion from %d folders", len(base_dirs))
+    all_documents: List[Document] = []
 
     for folder in base_dirs:
+        if not Path(folder).exists():
+            logger.warning("Folder not found, skipping: %s", folder)
+            continue
+
+        logger.info("Scanning folder: %s", folder)
         for file_path in Path(folder).rglob("*"):
             if file_path.suffix.lower() in ['.pdf','.txt']:
                 try:
-                    loader = PyPDFLoader(str(file_path)) if file_path.suffix = ".pdf"  else TextLoader(str(file_path))
+                    loader = PyPDFLoader(str(file_path)) if file_path.suffix == ".pdf"  else TextLoader(str(file_path))
                     docs = loader.load()
 
                     for doc in docs:
                         doc.metadata['file_path'] = str(file_path)
-                        doc.metadata['file_path'] = file_path.suffix
+                        doc.metadata['file_type'] = file_path.suffix.lower()
 
 
                     all_documents.extend(docs)
+                    logger.info("Loaded %d chunks from %s", len(docs), file_path)
 
                 except Exception as e:
-                    logger.warning(f"Failed ot load {file_path}: {e}")
+                    logger.exception("Failed to load %s: %s", file_path, e)
 
- 
+    logger.info("Local ingestion complete. Total documents loaded: %d", len(all_documents))
+    return all_documents
+
+
+if __name__ == "__main__":
+    logger.info("Starting MCP local-docs server on http://localhost:8002")
+    mcp.run(transport="http", host="localhost", port=8002)

@@ -6,3 +6,4 @@ chromadb
 pypdf
 beautifulsoup4
 requests
+fastmcp
