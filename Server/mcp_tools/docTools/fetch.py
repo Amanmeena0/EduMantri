@@ -5,7 +5,7 @@ import logging
 from typing import List, Dict, Any
 
 
-def load_documents() -> List[Documents]:
+def load_documents() -> List[Document]:
     """Load all documents from specified directories"""
 
     base_dirs = [
@@ -34,3 +34,4 @@ def load_documents() -> List[Documents]:
                 except Exception as e:
                     logger.warning(f"Failed ot load {file_path}: {e}")
 
+ 
