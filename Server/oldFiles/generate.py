@@ -5,7 +5,7 @@ import logging
 import uuid
 from datetime import datetime
 from typing import Optional
-from rag_pipline import (
+from oldFiles.rag_pipline import (
     conversational_rag_chain, 
     session_manager, 
     debug_retriever,
@@ -152,7 +152,7 @@ class ChatbotInterface:
         """Suggest follow-up questions based on current context"""
         try:
             # Use the working rag_with_followups function
-            from rag_pipline import rag_with_followups
+            from oldFiles.rag_pipline import rag_with_followups
             
             # Get the current session's chat history
             session_history = session_manager.get_session_history(self.session_id)

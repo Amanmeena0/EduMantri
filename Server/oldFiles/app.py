@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
-from generate import ChatbotInterface
+from oldFiles.generate import ChatbotInterface
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="VAHEI 2.0 Chatbot API")
