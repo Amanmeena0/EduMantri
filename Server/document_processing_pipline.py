@@ -6,9 +6,9 @@ from langchain_community.document_loaders import PyPDFLoader, TextLoader, WebBas
 from langchain_community.vectorstores import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_core.documents import Document
-import re
 from typing import List, Dict, Any
 from dataclasses import dataclass
+from transformers import AutoTokenizer
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -33,12 +33,25 @@ class Chunk:
 
 class SemanticChunker:
     """
-    Semantic chunking implementation optimized for document processing
+    Token-aware chunking implementation optimized for document processing
     """
     
-    def __init__(self, chunk_size: int = 800, overlap: int = 100):
+    def __init__(
+        self,
+        chunk_size: int = 800,
+        overlap: int = 100,
+        tokenizer_name: str = "sentence-transformers/all-MiniLM-L6-v2"
+    ):
+        if chunk_size <= 0:
+            raise ValueError("chunk_size must be greater than 0")
+        if overlap < 0:
+            raise ValueError("overlap must be greater than or equal to 0")
+        if overlap >= chunk_size:
+            raise ValueError("overlap must be smaller than chunk_size")
+
         self.chunk_size = chunk_size
         self.overlap = overlap
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
     
     def chunk_document(self, document: Document) -> List[Document]:
         """
@@ -65,58 +78,70 @@ class SemanticChunker:
         return langchain_docs
     
     def _semantic_chunk(self, text: str, source_id: str) -> List[Chunk]:
-        """
-        Chunk text by semantic boundaries (paragraphs, sentences)
-        """
+        """Chunk text using token windows with token overlap."""
+        if not text.strip():
+            return []
+
+        encoded = self.tokenizer(
+            text,
+            add_special_tokens=False,
+            return_offsets_mapping=True
+        )
+        token_ids = encoded.get("input_ids", [])
+        offsets = encoded.get("offset_mapping", [])
+        if not token_ids:
+            return []
+
         chunks = []
-        
-        # Split into paragraphs first
-        paragraphs = self._split_paragraphs(text)
-        current_chunk = ""
-        current_start = 0
-        
-        for para in paragraphs:
-            # If adding this paragraph would exceed chunk size, finalize current chunk
-            if len(current_chunk) + len(para) > self.chunk_size and current_chunk:
-                chunk = self._create_chunk(
-                    current_chunk.strip(), 
-                    current_start, 
-                    current_start + len(current_chunk),
-                    source_id,
-                    len(chunks)
-                )
-                chunks.append(chunk)
-                current_start += len(current_chunk)
-                current_chunk = ""
-            
-            current_chunk += para + "\n\n"
-        
-        # Add final chunk if content remains
-        if current_chunk.strip():
+        step_size = self.chunk_size - self.overlap
+
+        for start_tok in range(0, len(token_ids), step_size):
+            end_tok = min(start_tok + self.chunk_size, len(token_ids))
+            chunk_token_ids = token_ids[start_tok:end_tok]
+            content = self.tokenizer.decode(chunk_token_ids, skip_special_tokens=True).strip()
+            if not content:
+                if end_tok == len(token_ids):
+                    break
+                continue
+
+            start_char = offsets[start_tok][0]
+            end_char = offsets[end_tok - 1][1]
+
             chunk = self._create_chunk(
-                current_chunk.strip(), 
-                current_start, 
-                current_start + len(current_chunk),
+                content,
+                start_char,
+                end_char,
                 source_id,
-                len(chunks)
+                len(chunks),
+                start_tok,
+                end_tok
             )
             chunks.append(chunk)
-            
+
+            if end_tok == len(token_ids):
+                break
+
         return chunks
     
-    def _split_paragraphs(self, text: str) -> List[str]:
-        """Split text into paragraphs"""
-        paragraphs = re.split(r'\n\s*\n', text)
-        return [p.strip() for p in paragraphs if p.strip()]
-    
-    def _create_chunk(self, content: str, start: int, end: int, source_id: str, 
-                     chunk_idx: int) -> Chunk:
+    def _create_chunk(
+        self,
+        content: str,
+        start: int,
+        end: int,
+        source_id: str,
+        chunk_idx: int,
+        token_start: int,
+        token_end: int
+    ) -> Chunk:
         """Create a chunk with metadata"""
         metadata = {
             "source_id": source_id,
             "chunk_index": chunk_idx,
             "char_count": len(content),
             "word_count": len(content.split()),
+            "token_count": token_end - token_start,
+            "token_start": token_start,
+            "token_end": token_end,
             "chunk_start": start,
             "chunk_end": end
         }
@@ -234,7 +259,7 @@ def main():
     chunked_documents = process_documents_with_chunking(documents)
     logger.info(f"Created {len(chunked_documents)} total chunks")
     
-    # Create and persist vector store
+    # Create and persist vector storeaa
     logger.info("Creating vector store...")
     vectorstore = create_vector_store(chunked_documents)
     
