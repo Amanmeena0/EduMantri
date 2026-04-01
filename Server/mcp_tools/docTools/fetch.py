@@ -1,62 +1,60 @@
-import os 
+import os
 from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 import logging
-from typing import List, Dict, Any
+from typing import List
 from langchain_core.documents import Document
-from fastmcp import FastMCP
 
-
-
-mcp = FastMCP(name="Calculator-https")
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@mcp.tool()
-def local_documents() -> List[Document]:
-    """Load all documents from specified directories"""
 
-    base_dirs = [
-        "./data/FAQ",
-        "./data/Hand_Of_Procedure",
-        "./data/Foregin_Trade_Policy",
-        "./data/Txt_files/"
-    ]
+class LocalDocuments:
 
-    logger.info("Starting local document ingestion from %d folders", len(base_dirs))
-    all_documents: List[Document] = []
+    @staticmethod
+    def load_documents() -> List[Document]:
+        """Load all documents from specified directories"""
 
-    for folder in base_dirs:
-        if not Path(folder).exists():
-            logger.warning("Folder not found, skipping: %s", folder)
-            continue
+        base_dirs = [
+            "./data/FAQ",
+            "./data/Hand_Of_Procedure",
+            "./data/Foregin_Trade_Policy",
+            "./data/Txt_files/"
+        ]
 
-        logger.info("Scanning folder: %s", folder)
-        for file_path in Path(folder).rglob("*"):
-            if file_path.suffix.lower() in ['.pdf','.txt']:
-                try:
-                    loader = PyPDFLoader(str(file_path)) if file_path.suffix == ".pdf"  else TextLoader(str(file_path))
-                    docs = loader.load()
+        logger.info("Starting local document ingestion from %d folders", len(base_dirs))
+        all_documents: List[Document] = []
 
-                    for doc in docs:
-                        doc.metadata['file_path'] = str(file_path)
-                        doc.metadata['file_type'] = file_path.suffix.lower()
+        for folder in base_dirs:
+            path = Path(folder)
 
+            if not path.exists():
+                logger.warning("Folder not found, skipping: %s", folder)
+                continue
 
-                    all_documents.extend(docs)
-                    logger.info("Loaded %d chunks from %s", len(docs), file_path)
+            logger.info("Scanning folder: %s", folder)
 
-                except Exception as e:
-                    logger.exception("Failed to load %s: %s", file_path, e)
+            for file_path in path.rglob("*"):
+                if file_path.suffix.lower() in ['.pdf', '.txt']:
+                    try:
+                        if file_path.suffix.lower() == ".pdf":
+                            loader = PyPDFLoader(str(file_path))
+                        else:
+                            loader = TextLoader(str(file_path))
 
-    logger.info("Local ingestion complete. Total documents loaded: %d", len(all_documents))
-    return all_documents
+                        docs = loader.load()
 
+                        for doc in docs:
+                            doc.metadata["file_path"] = str(file_path)
+                            doc.metadata["file_type"] = file_path.suffix.lower()
 
-if __name__ == "__main__":
-    logger.info("Starting MCP local-docs server on http://localhost:8002")
-    mcp.run(transport="http", host="localhost", port=8002)
+                        all_documents.extend(docs)
+
+                        logger.info("Loaded %d chunks from %s", len(docs), file_path)
+
+                    except Exception as e:
+                        logger.exception("Failed to load %s: %s", file_path, e)
+
+        logger.info("Local ingestion complete. Total documents loaded: %d", len(all_documents))
+
+        return all_documents
