@@ -2,12 +2,12 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from typing import List
 import logging
-from models import get_llms, get_embedding
+from models import get_embedding
 from Chunking import process_documents_with_chunking
-from ..mcp_tools.docTools.fetch import LocalDocuments
-from ..mcp_tools.webTools.scraper import WebDocument
+from mcp_tools.docTools.fetch import LocalDocuments
+from mcp_tools.webTools.scraper import WebDocument
 
-logging.basicConfig(level=logging.info)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 

@@ -7,7 +7,7 @@ from langchain_core.documents import Document
 from transformers import AutoTokenizer
 
 
-logging.basicConfig(level=logging.info)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 load_dotenv()

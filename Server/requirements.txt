@@ -1,5 +1,4 @@
-beautifulsoup4
-chromadb
+
 faiss-cpu
 fastapi
 fastmcp
@@ -13,7 +12,7 @@ pypdf
 pyttsx3
 python-dotenv
 requests
-SpeechRecognition
+
 tenacity
 torch
 transformers
