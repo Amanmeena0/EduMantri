@@ -1,11 +1,13 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_community.embeddings import HuggingFaceEmbeddings  
+
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 from dotenv import load_dotenv
 import os
 
 
 load_dotenv()
-
+HF_TOKEN= os.getenv("HF_TOKEN")
 GOOGLE_KEY = os.getenv("GOOGLE_API_KEY") 
 os.environ["GOOGLE_API_KEY"] = GOOGLE_KEY
 
