@@ -2,15 +2,10 @@ import os
 import logging 
 
 from langchain_community.vectorstores import FAISS
-from langchain_core.output_parsers import StrOutputParser
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.documents import Document
 from Processes.models.models import get_embedding
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-
 
 class EnhancedRetriever:
     """Enhanced Retriever"""
