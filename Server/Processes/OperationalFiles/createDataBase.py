@@ -2,8 +2,8 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from typing import List
 import logging
-from Processes.models import get_embedding
-from Processes.Chunking import process_documents_with_chunking
+from Processes.models.models import get_embedding
+from Processes.OperationalFiles.Chunking import process_documents_with_chunking
 from mcp_tools.docTools.fetch import LocalDocuments
 from mcp_tools.webTools.scraper import WebDocument
 
