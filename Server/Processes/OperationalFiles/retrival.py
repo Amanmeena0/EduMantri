@@ -4,7 +4,6 @@ import logging
 from langchain_community.vectorstores import FAISS
 from langchain_core.output_parsers import StrOutputParser
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain_core.documents import Document
 from Processes.models.models import get_embedding
 
@@ -24,7 +23,7 @@ class EnhancedRetriever:
         self.retriver()
 
 
-    def retriver(self):
+    def initilize_retriver_mmr(self):
         """Initialize the FAISS vector store and retriever"""
 
         try:
@@ -54,3 +53,6 @@ class EnhancedRetriever:
         except Exception as e:
             logger.error(f"Failed to initialize vector store: {e}")
             raise
+
+enhanced_retriver = EnhancedRetriever()
+retriver = enhanced_retriver.retriever
