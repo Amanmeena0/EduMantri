@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App > snapshot matches 1`] = `
+<div>
+  <div
+    class="bg-black h-screen w-screen text-amber-400"
+  >
+    <p>
+      Hi bitch
+    </p>
+  </div>
+</div>
+`;
