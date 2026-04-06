@@ -1,4 +1,4 @@
-import  {LandingPage, Dashboard} from "./Component/index.js"
+import  {LandingPage, Dashboard, Workspace} from "./Component/index.js"
 
 
 function App() {
@@ -6,8 +6,10 @@ function App() {
   return (
     <>
       <div className="bg-black h-screen w-screen text-amber-400"> 
+        
+        <Workspace/>
         <Dashboard/>
-        {/* <LandingPage /> */}
+        <LandingPage />
         <p>Hi bitch</p>
       </div>
     </>
