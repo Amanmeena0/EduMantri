@@ -1,2 +1,3 @@
-export { default as AuraTutorLanding } from "./LandingPage";
-export { default as AuraTutorDashboard } from "./DashBoard";
+export { default as LandingPage } from "./LandingPage";
+export { default as Dashboard } from "./Dashboard";
+export { default as Workspace } from "./Workspace";
