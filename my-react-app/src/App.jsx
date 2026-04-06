@@ -1,6 +1,5 @@
 import  {LandingPage, Dashboard, Workspace} from "./Component/index.js"
 
-
 function App() {
 
   return (
@@ -10,7 +9,6 @@ function App() {
         <Workspace/>
         <Dashboard/>
         <LandingPage />
-        <p>Hi bitch</p>
       </div>
     </>
   )
