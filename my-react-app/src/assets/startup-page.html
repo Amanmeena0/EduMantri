@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aura Tutor - The Digital Atelier</title>
+<!-- Fonts: Newsreader for Thought/Headline, Inter for Tool/UI -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#291800",
+                    "secondary-fixed-dim": "#a7d1a5",
+                    "tertiary-fixed-dim": "#eebf7a",
+                    "on-secondary-fixed-variant": "#294f2d",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#dcaf6c",
+                    "surface-tint": "#43664b",
+                    "on-surface": "#1b1c18",
+                    "on-secondary-fixed": "#002107",
+                    "on-primary-fixed": "#00210d",
+                    "on-primary-fixed-variant": "#2c4e35",
+                    "error-container": "#ffdad6",
+                    "secondary": "#416743",
+                    "tertiary-container": "#614107",
+                    "error": "#ba1a1a",
+                    "primary-container": "#2d4f36",
+                    "on-secondary-container": "#476d49",
+                    "surface-variant": "#e3e3dc",
+                    "tertiary": "#452c00",
+                    "surface-container-low": "#f5f4ed",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#a9d0af",
+                    "secondary-fixed": "#c2eec0",
+                    "primary-fixed-dim": "#a9d0af",
+                    "surface-container-highest": "#e3e3dc",
+                    "surface": "#fafaf3",
+                    "on-surface-variant": "#424842",
+                    "tertiary-fixed": "#ffddb1",
+                    "primary-fixed": "#c5ecca",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c2c8c0",
+                    "surface-bright": "#fafaf3",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#604006",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e9e8e2",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#fafaf3",
+                    "on-primary-container": "#9ac0a0",
+                    "outline": "#727971",
+                    "surface-dim": "#dbdad4",
+                    "inverse-surface": "#30312c",
+                    "inverse-on-surface": "#f2f1ea",
+                    "on-background": "#1b1c18",
+                    "secondary-container": "#c2eec0",
+                    "surface-container": "#efeee7",
+                    "primary": "#163821"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .serif-text { font-family: 'Newsreader', serif; }
+        .sans-text { font-family: 'Inter', sans-serif; }
+        .brass-gradient {
+            background: linear-gradient(135deg, #452c00 0%, #614107 100%);
+        }
+        .soft-glow {
+            box-shadow: 0 0 60px 10px rgba(255, 221, 177, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface sans-text min-h-screen flex flex-col selection:bg-tertiary-fixed selection:text-on-tertiary-fixed">
+<!-- TopNavBar Shell (Transactional/Focused - Navigation suppressed as per rules for Landing/Login) -->
+<nav class="bg-[#fafaf3]/85 backdrop-blur-xl sticky top-0 z-50 shadow-[0_8px_32px_rgba(27,28,24,0.05)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="font-serif italic text-2xl text-[#163821]">Aura Tutor</div>
+<div class="flex items-center gap-8">
+<a class="Inter uppercase tracking-wider text-xs font-medium text-stone-500 hover:text-[#452c00] transition-colors" href="#">Dashboard</a>
+<a class="Inter uppercase tracking-wider text-xs font-medium text-stone-500 hover:text-[#452c00] transition-colors" href="#">Help</a>
+<span class="material-symbols-outlined text-[#163821] cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</nav>
+<main class="flex-grow flex flex-col md:flex-row items-center justify-center px-6 py-12 md:py-24 max-w-7xl mx-auto gap-16">
+<!-- Hero Section (Content & Identity) -->
+<div class="flex-1 space-y-8 md:text-left text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] uppercase font-bold tracking-widest">
+<span class="material-symbols-outlined text-[14px]" data-icon="auto_awesome">auto_awesome</span>
+                The Digital Atelier
+            </div>
+<h1 class="serif-text text-5xl md:text-7xl font-semibold leading-[1.1] text-primary tracking-tight">
+                Meet Your Personal <br/>
+<span class="italic text-tertiary">AI Tutor.</span>
+</h1>
+<p class="serif-text italic text-xl md:text-2xl text-on-surface-variant max-w-lg leading-relaxed">
+                Master any subject with study-focused AI, curated within a sanctuary for deep work and scholarly pursuit.
+            </p>
+<div class="pt-4 flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
+<button class="brass-gradient text-on-tertiary px-10 py-4 rounded-xl font-semibold tracking-wide shadow-lg hover:scale-105 transition-all duration-300 active:scale-95 flex items-center gap-2">
+                    Get Started
+                    <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="sans-text text-[11px] uppercase tracking-widest font-bold text-stone-400">
+                    No Credit Card Required
+                </p>
+</div>
+</div>
+<!-- Visual/Login Anchor (The Asymmetric Focus) -->
+<div class="flex-1 w-full max-w-md">
+<div class="bg-surface-container-low p-8 md:p-12 rounded-[2rem] relative shadow-sm border border-outline-variant/10">
+<!-- Glowing Graphic Element -->
+<div class="absolute -top-12 -right-8 w-32 h-32 bg-tertiary-fixed-dim/20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-8 -left-8 w-40 h-40 bg-secondary-fixed/20 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col items-center">
+<!-- Animated Book/Brain Icon Placeholder -->
+<div class="w-24 h-24 bg-surface-container-lowest rounded-2xl flex items-center justify-center soft-glow mb-8 group transition-all duration-500 hover:rotate-3">
+<span class="material-symbols-outlined text-5xl text-tertiary" data-icon="menu_book" data-weight="fill" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<h2 class="serif-text text-2xl font-bold text-on-surface mb-2">Welcome Back</h2>
+<p class="sans-text text-xs uppercase tracking-widest text-stone-500 font-semibold mb-8">Enter your digital atelier</p>
+<div class="w-full space-y-4">
+<!-- Login Options -->
+<button class="w-full flex items-center justify-center gap-3 bg-surface-container-lowest border border-outline-variant/30 py-3.5 px-6 rounded-xl hover:bg-surface-container-high transition-colors sans-text text-sm font-semibold text-on-surface">
+<img alt="Google" class="w-5 h-5" data-alt="Official Google logo icon with its signature primary colors on a transparent background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChfMyXQnpBu-gDd2tv8AYf_wieKAXd6h2_Lde1wtMhr1IrZlpoOATCIUGrV_uztXutn0lOp93lPrT3_shuJSRdEfuQq6FEmdwHIZvF8_soExjASJrFyw8ho1VFtsHJWS2pW4z1zf5Wf_s9A3db_GwoGTM4JMVmXsb_jnFl5csCquuRRQchOpKgDdk7u-DJ-GO5er1V4NeZFcYumMmAuc5BQdSWQZuiiRgEL1-FHrhzxgjP0mklrqUNziC7mOzrMm2CeKmobN1i7jk9"/>
+                            Continue with Google
+                        </button>
+<button class="w-full flex items-center justify-center gap-3 bg-stone-900 text-white py-3.5 px-6 rounded-xl hover:bg-black transition-colors sans-text text-sm font-semibold">
+<span class="material-symbols-outlined text-[20px]" data-icon="code">code</span>
+                            Continue with GitHub
+                        </button>
+<div class="flex items-center gap-4 py-4">
+<div class="h-[1px] flex-grow bg-outline-variant/20"></div>
+<span class="sans-text text-[10px] uppercase tracking-widest text-stone-400 font-bold">Or</span>
+<div class="h-[1px] flex-grow bg-outline-variant/20"></div>
+</div>
+<div class="space-y-4">
+<input class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant focus:ring-0 focus:border-primary px-0 py-3 sans-text text-sm transition-all placeholder:text-stone-400" placeholder="Institutional Email" type="email"/>
+<button class="w-full bg-secondary text-on-secondary py-3.5 px-6 rounded-xl hover:bg-primary transition-all sans-text text-sm font-semibold tracking-wide">
+                                Continue with Email
+                            </button>
+</div>
+</div>
+<p class="sans-text text-[11px] text-center mt-8 text-stone-500 leading-relaxed">
+                        By continuing, you agree to our <br/>
+<a class="text-tertiary font-bold hover:underline" href="#">Terms of Service</a> and <a class="text-tertiary font-bold hover:underline" href="#">Privacy Policy</a>.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-surface border-t border-stone-200/20 py-12">
+<div class="flex flex-col items-center gap-4 text-center w-full max-w-7xl mx-auto px-4">
+<div class="text-[#163821] font-serif text-xl italic">Aura Tutor</div>
+<div class="flex gap-8">
+<a class="text-stone-400 hover:text-[#163821] transition-colors Inter text-xs uppercase tracking-widest font-semibold" href="#">Privacy Policy</a>
+<a class="text-stone-400 hover:text-[#163821] transition-colors Inter text-xs uppercase tracking-widest font-semibold" href="#">Terms of Service</a>
+<a class="text-stone-400 hover:text-[#163821] transition-colors Inter text-xs uppercase tracking-widest font-semibold" href="#">Research Credits</a>
+</div>
+<p class="text-stone-600 font-headline italic text-sm mt-4">
+                © 2024 Aura Tutor. The Digital Atelier for Deep Learning.
+            </p>
+</div>
+</footer>
+<!-- Decorative Corner Chip (Annotation Style) -->
+<div class="fixed bottom-6 right-6 hidden md:block">
+<div class="bg-tertiary-fixed text-on-tertiary-fixed px-4 py-2 rounded-lg text-[11px] uppercase font-bold tracking-widest shadow-lg flex items-center gap-2 border border-tertiary/10">
+<span class="material-symbols-outlined text-[16px]" data-icon="lightbulb" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+            AI-Enhanced Study Mode Active
+        </div>
+</div>
+</body></html>
