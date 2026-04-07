@@ -5,6 +5,9 @@ import logging
 from typing import List
 from langchain_core.documents import Document
 
+# bs4 and requests 
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
