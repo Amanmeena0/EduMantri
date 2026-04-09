@@ -146,26 +146,6 @@ comparison_prompt = ChatPromptTemplate.from_messages([
     ("human", "{item_a} vs {item_b} on {focus}")
 ])
 
-comparison_prompt = ChatPromptTemplate.from_messages([
-    ("system",
-     "Compare and contrast the following two items for a {education_level} student.\n\n"
-     "Item A: {item_a}\n"
-     "Item B: {item_b}\n"
-     "Focus area: {focus} (e.g., causes, features, formulas, historical impact)\n\n"
-     "OUTPUT AS TABLE:\n"
-     "| Criteria | {item_a} | {item_b} |\n"
-     "|----------|----------|----------|\n"
-     "| [criterion 1] | ... | ... |\n"
-     "| [criterion 2] | ... | ... |\n\n"
-     "Then add:\n"
-     "**Key Similarity:** ...\n"
-     "**Key Difference:** ...\n"
-     "**Which to use when?:** ...\n\n"
-     "If insufficient data for either item, respond: 'I lack sufficient information to compare {missing_item}.'"
-    ),
-    ("human", "{item_a} vs {item_b} on {focus}")
-])
-
 practice_questions_prompt = ChatPromptTemplate.from_messages([
     ("system",
      "Generate {num_questions} {question_type} questions (multiple-choice, short answer, or true/false) based on this content.\n\n"
