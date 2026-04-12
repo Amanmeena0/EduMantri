@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from oldFiles.generate import ChatbotInterface
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="VAHEI 2.0 Chatbot API")
+app = FastAPI(title="EduMantrid")
 
 # Allow CORS for frontend integration
 app.add_middleware(

@@ -2,7 +2,7 @@ import os
 import logging 
 
 from langchain_community.vectorstores import FAISS
-from Processes.models.models import get_embedding
+from Services.models.models import get_embedding
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -2,7 +2,7 @@ from langchain.chains import create_history_aware_retriever, create_retrieval_ch
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from typing import List
 from models.models import get_llms
-from OperationalFiles.retrival import retriver
+from utils.retrival import retriver
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables.base import RunnableLambda
 from langchain_core.runnables.history import RunnableWithMessageHistory
